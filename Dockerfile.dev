@@ -1,0 +1,11 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN yarn
+
+# could probably remove this when working locally with volumes
+COPY . .
+
+CMD ["yarn", "start"]
