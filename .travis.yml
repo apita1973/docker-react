@@ -1,4 +1,5 @@
 sudo: required
+
 services:
   - docker
 
@@ -7,3 +8,17 @@ before_install:
 
 script:
   - docker run -e CI=true apita1973/docker-react yarn test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-1-395563589123"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
